@@ -21,6 +21,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by ManhNV on 10/30/16.
@@ -241,4 +242,11 @@ public class Util {
         return optimalSize;
     }
 
+    public static int random(int min, int max) {
+        Random r = new Random();
+        int ran = r.nextInt();
+        ran = ran > 0 ? ran : ran * -1;
+        ran = min + ran % (max - min + 1);
+        return ran;
+    }
 }

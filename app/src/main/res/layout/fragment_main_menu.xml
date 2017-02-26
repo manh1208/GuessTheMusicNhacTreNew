@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/btn_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5sp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="@string/title_button_rate"
+        android:textColor="@color/color_button_menu"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_like_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5sp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="@string/title_button_like_us"
+        android:textColor="@color/color_button_menu"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_about_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5sp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="@string/title_button_about_us"
+        android:textColor="@color/color_button_menu"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_hot_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5sp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="@string/title_button_hot_game"
+        android:textColor="@color/color_button_menu"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</LinearLayout>

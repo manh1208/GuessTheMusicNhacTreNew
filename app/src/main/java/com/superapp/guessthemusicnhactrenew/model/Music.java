@@ -1,12 +1,26 @@
 package com.superapp.guessthemusicnhactrenew.model;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+
 import com.google.gson.annotations.SerializedName;
+import com.superapp.guessthemusicnhactrenew.dao.ISqliteTable;
 
 /**
  * Created by ManhNV on 2/18/17.
  */
 
-public class Music {
+public class Music implements ISqliteTable {
+    public final static String TABLENAME = "Music";
+    public final static String ID = "_id";
+    public final static String FILENAME = "fileName";
+    public final static String CREATEAT = "create_at";
+    public final static String TITLE = "title";
+    public final static String KEY = "key";
+    public final static String VERSION = "version";
+    public final static String CATEGORY = "category";
+
+
     @SerializedName("_id")
     private String _id;
     @SerializedName("fileName")
@@ -21,8 +35,6 @@ public class Music {
     private String version;
     @SerializedName("category")
     private String category;
-    @SerializedName("_v")
-    private String _v;
 
     public String get_id() {
         return _id;
@@ -80,11 +92,34 @@ public class Music {
         this.category = category;
     }
 
-    public String get_v() {
-        return _v;
+
+    @Override
+    public void setValue(Cursor cursor) {
+
+        this._id = cursor.getString(cursor.getColumnIndex(ID));
+        this.fileName = cursor.getString(cursor.getColumnIndex(FILENAME));
+        this.create_at = cursor.getString(cursor.getColumnIndex(CREATEAT));
+        this.title = cursor.getString(cursor.getColumnIndex(TITLE));
+        this.key = cursor.getString(cursor.getColumnIndex(KEY));
+        this.version = cursor.getString(cursor.getColumnIndex(VERSION));
+
+
     }
 
-    public void set_v(String _v) {
-        this._v = _v;
+    @Override
+    public ContentValues getContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(ID, this._id);
+        values.put(FILENAME, this.fileName);
+        values.put(CREATEAT, this.create_at);
+        values.put(TITLE, this.title);
+        values.put(KEY, this.key);
+        values.put(VERSION, this.version);
+        return values;
+    }
+
+    @Override
+    public String getPrimaryValue() {
+        return this._id;
     }
 }

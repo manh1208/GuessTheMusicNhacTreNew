@@ -10,9 +10,12 @@ import com.superapp.guessthemusicnhactrenew.R;
 import com.superapp.guessthemusicnhactrenew.model.Music;
 import com.superapp.guessthemusicnhactrenew.model.MusicList;
 import com.superapp.guessthemusicnhactrenew.model.STATIC_DATA;
+import com.superapp.guessthemusicnhactrenew.service.MusicService;
+import com.superapp.guessthemusicnhactrenew.util.DbUtil;
 import com.superapp.guessthemusicnhactrenew.util.Util;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,10 +32,14 @@ public class DoadloadFile extends AsyncTask<MusicList, Integer, Boolean> {
     private Context mContext;
     private ProgressDialog pDialog;
     private MessageHandler messageHandler;
+    private MusicService musicService;
+    private DbUtil dbUtil;
 
     public DoadloadFile(Context mContext, MessageHandler handler) {
         this.mContext = mContext;
         this.messageHandler = handler;
+        dbUtil = new DbUtil(mContext);
+        musicService = new MusicService(dbUtil);
     }
 
     @Override
@@ -41,7 +48,7 @@ public class DoadloadFile extends AsyncTask<MusicList, Integer, Boolean> {
         pDialog = new ProgressDialog(mContext);
         pDialog.setMessage("Đang tải bài hát");
         pDialog.setCancelable(false);
-        pDialog.setIndeterminate(true);
+        pDialog.setCanceledOnTouchOutside(false);
         pDialog.show();
     }
 
@@ -55,13 +62,13 @@ public class DoadloadFile extends AsyncTask<MusicList, Integer, Boolean> {
     @Override
     protected Boolean doInBackground(MusicList... musicLists) {
         MusicList musicList = musicLists[0];
-        int i =1;
+        int i = 1;
         int total = musicList.getMusics().size();
-        if (total>0) {
+        if (total > 0) {
             for (Music music : musicList.getMusics()) {
                 publishProgress(i++, total);
                 downloadMusic(music, musicList.getRootURL());
-
+                Log.e("Download file", "Processing...: " + music.getFileName());
             }
         }
         return true;
@@ -70,20 +77,19 @@ public class DoadloadFile extends AsyncTask<MusicList, Integer, Boolean> {
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        Log.e("Download file", "Processing...: " + values[0]);
-        pDialog.setMessage("Đang tải "+values[0]+ "/"+values[1]+" bài hát");
+
+        pDialog.setMessage("Đang tải " + values[0] + "/" + values[1] + " bài hát");
     }
 
     private void downloadMusic(Music music, String path) {
         try {
 
-            java.net.URL url = new URL(path + music.getFileName().trim().replace(" ","%20")+"?alt=media");
+            java.net.URL url = new URL(path + music.getFileName().trim().replace(" ", "%20") + "?alt=media");
             URLConnection connection = url.openConnection();
             connection.connect();
             int lenghOfFile = connection.getContentLength();
             InputStream inputStream = new BufferedInputStream(url.openStream());
-            OutputStream outputStream = new FileOutputStream(Util.getFile(Environment.getExternalStorageDirectory(),
-                    music.getFileName(), STATIC_DATA.FOLDER_GUESS_THE_MUSIC));
+            OutputStream outputStream = new FileOutputStream(new File(String.valueOf(mContext.getFileStreamPath(music.getFileName()))));
             byte data[] = new byte[1024];
             long total = 0;
             int count;
@@ -95,10 +101,10 @@ public class DoadloadFile extends AsyncTask<MusicList, Integer, Boolean> {
             outputStream.flush();
             outputStream.close();
             inputStream.close();
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            musicService.delete(music);
+            Log.e("Download file", "List in DB size: "+ musicService.getAllMusics().size());
         }
     }
 

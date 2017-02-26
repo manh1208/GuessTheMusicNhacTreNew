@@ -5,4 +5,16 @@
     <string name="btnOK">Đồng ý</string>
     <string name="btnCancel">Hủy bỏ</string>
     <string name="string_cannot_connect_with_server">Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại kết nối</string>
+    <string name="title_button_rate">RATE</string>
+    <string name="title_button_like_us">LIKE US</string>
+    <string name="title_button_about_us">ABOUT US</string>
+    <string name="title_button_hot_game">HOT GAME</string>
+    <string name="revmob_id">58989ff659acc9620beeea7b</string>
+    <string name="confirm_update">Đã có bản cập nhật bài hát mới. Bạn có muốn cập nhật?</string>
+    <string name="confirm_update_title">Cập nhật</string>
+    <string name="app_facebook_id">627490414076062</string>
+    <string name="app_id">305065155535</string>
+    <string name="leaderboard_speed">CgkIz7ezuvAIEAIQAQ</string>
+    <string name="signin_other_error">There was an issue with sign in. Please try again later.</string>
+    <string name="leader_board">Leader board</string>
 </resources>

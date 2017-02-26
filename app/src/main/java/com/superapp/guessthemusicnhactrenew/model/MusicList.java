@@ -15,6 +15,8 @@ public class MusicList {
     @SerializedName("rootURL")
     private String rootURL;
 
+    @SerializedName("newestVersion")
+    private int newestVersion;
 
     public List<Music> getMusics() {
         return musics;
@@ -30,5 +32,13 @@ public class MusicList {
 
     public void setRootURL(String rootURL) {
         this.rootURL = rootURL;
+    }
+
+    public int getNewestVersion() {
+        return newestVersion;
+    }
+
+    public void setNewestVersion(int newestVersion) {
+        this.newestVersion = newestVersion;
     }
 }
